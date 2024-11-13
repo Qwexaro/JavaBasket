@@ -1,22 +1,27 @@
 public class Basket {
-    private static String items = "";
-    private static int totalPrice = 0;
+    private String items = "";
+    private int totalPrice = 0;
+    private int limit = 1_000_000;
 
-    public static void main(String[] args) {
-        add("1 кг индейки", 700);
-        add("Гранатовый сок", 300);
-        add("Консервированный помидор", 250);
-        add("1 кг индейки", 700);
-        add("Пакет молока", 100);
-        add("Твикс", 65);
-        add("1 кг индейки", 700);
-        print("Содержимое корзины:");
-        clear();
-        print("Содержимое корзины:");
+
+    public Basket(String items, int totalPrice) {
+        this();
+        add(items, totalPrice);
     }
 
-    public static void add(String name, int price) {
-        if (containsItem(name)) {
+    public Basket(int limit) {
+        this();
+        this.limit = limit; // переменная после точки будет относиться к классу
+    }
+
+    public Basket() {
+        items += "Список товаров:";
+    }
+
+    public void add(String name, int price) {
+        if (totalPrice + price > limit) {
+            return;
+        } else if (containsItem(name)) {
             return;
         } else if (items.isEmpty()) {
             items += name + " - " + price;
@@ -27,12 +32,12 @@ public class Basket {
         }
     }
 
-    public static void clear() {
+    public void clear() {
         items = "";
         totalPrice = 0;
     }
 
-    public static void print(String tittle) {
+    public void print(String tittle) {
         System.out.println(tittle);
         if (items.isEmpty()) {
             System.out.println("Карзина пуста!");
@@ -42,12 +47,14 @@ public class Basket {
         }
     }
 
-    public static int getTotalPrice() {
+    public int getTotalPrice() {
         return totalPrice;
     }
 
-    public static boolean containsItem(String name) {
+    public boolean containsItem(String name) {
         return items.contains(name);
     }
     // items типизирован стрингом
+    // конкретный кекс - обьект
+    // формочка - класс
 }
