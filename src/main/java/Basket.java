@@ -2,6 +2,7 @@ public class Basket {
     private String items = "";
     private int totalPrice = 0;
     private int limit = 1_000_000;
+    private static int countBasket = 0;
 
 
     public Basket(String items, int totalPrice) {
@@ -14,11 +15,14 @@ public class Basket {
         this.limit = limit; // переменная после точки будет относиться к классу
     }
 
+
     public Basket() {
+        countBasket++;
         items += "Список товаров:";
     }
 
-    public void add(String name, int price) {
+    public void add(String name, int price, int count) {
+        price *= count;
         if (totalPrice + price > limit) {
             return;
         } else if (containsItem(name)) {
@@ -30,6 +34,10 @@ public class Basket {
             items += "\n" + name + " - " + price;
             totalPrice += price;
         }
+    }
+
+    public void add(String name, int price) {
+        add(name, price, 1);
     }
 
     public void clear() {
@@ -53,6 +61,10 @@ public class Basket {
 
     public boolean containsItem(String name) {
         return items.contains(name);
+    }
+
+    public static int getCountBasket() {
+        return countBasket;
     }
     // items типизирован стрингом
     // конкретный кекс - обьект
