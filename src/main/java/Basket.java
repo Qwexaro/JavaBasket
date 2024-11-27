@@ -1,4 +1,5 @@
 public class Basket {
+    private Product product; // type data class
     private String items = "";
     private int totalPrice = 0;
     private int limit = 1_000_000;
@@ -7,7 +8,7 @@ public class Basket {
 
     public Basket(String items, int totalPrice, double totalWeight) {
         this();
-        add(items, totalPrice, totalWeight);
+        add(product);
     }
 
     public Basket(int limit) {
@@ -21,27 +22,28 @@ public class Basket {
         items += "Список товаров:";
     }
 
-    public void add(String name, int price, int count, double weight) {
-
+    public void add(Product product, int count) {
+        String name = product.getName();
+        int price = product.getSalary();
         price *= count;
         if (totalPrice + price > limit) {
             return;
         } else if (containsItem(name)) {
             return;
         } else if (items.isEmpty()) {
-            items += name + " - " + price + " Вес: " + weight + "kg";
+            items += name + " - " + price;
             totalPrice += price;
-            totalWeight += weight;
+            //totalWeight += weight;
 
         } else {
             items += "\n" + name + " - " + price;
             totalPrice += price;
-            totalWeight += weight;
+            //totalWeight += weight;
         }
     }
 
-    public void add(String name, int price, double weight) {
-        add(name, price, 1, weight);
+    public void add(Product product) {
+        add(product, 1);
     }
 
     public void clear() {
