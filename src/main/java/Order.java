@@ -3,7 +3,8 @@ public class Order {
         if (product.getSalary() >= 1_000) {
             int percent = product.getSalary() * 10 / 100;
             int priceProduct = product.getSalary() - percent;
-            System.out.println("Стоимость продукта: " + priceProduct);
+            Product currentProduct = product.setSalary(priceProduct);
+            System.out.println("Стоимость продукта: " + currentProduct.getSalary());
         }
     }
 

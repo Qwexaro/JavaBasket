@@ -1,7 +1,7 @@
 public class Product {
-    private final String name;
-    private final int salary;
-    private final double weight;
+    private String name;
+    private int salary;
+    private double weight;
 
     public Product(String name, int salary, double weight) {
         this.name = name;
@@ -13,23 +13,30 @@ public class Product {
         return name;
     }
 
-
     public int getSalary() {
         return salary;
     }
-
 
     public double getWeight() {
         return weight;
     }
 
+    public Product setName(String name) {
+        return new Product(name, salary, weight);
+    }
+
+    public Product setSalary(int salary) {
+        return new Product(name, salary, weight);
+    }
+
+    public Product setWeight(double weight) {
+        return new Product(name, salary, weight);
+    }
+
     @Override
     public String toString() {
         return "Product{" +
-                "name='" + name + '\'' +
-                ", salary=" + salary +
-                ", weight=" + weight +
-                '}';
+                "name='" + name + '\'' + ", salary=" + salary +
+                ", weight=" + weight + '}';
     }
 }
-// pojo class tot kotori mozhno cherez alt+ins sdelat
