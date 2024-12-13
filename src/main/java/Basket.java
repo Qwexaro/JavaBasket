@@ -1,9 +1,12 @@
 public class Basket {
-    private Product product; // type data class
+    private static double totalCost = 0;
+    private static int totalCount = 0;
+    private static int countBasket = 0;
+
+    private Product product;
     private String items = "";
     private int totalPrice = 0;
     private int limit = 1_000_000;
-    private static int countBasket = 0;
     private double totalWeight = 0;
 
     public Basket(String items, int totalPrice, double totalWeight) {
@@ -13,9 +16,8 @@ public class Basket {
 
     public Basket(int limit) {
         this();
-        this.limit = limit; // переменная после точки будет относиться к классу
+        this.limit = limit;
     }
-
 
     public Basket() {
         countBasket++;
@@ -24,8 +26,8 @@ public class Basket {
 
     public void add(Product product, int count) {
         String name = product.getName();
-        int price = product.getSalary();
-        price *= count;
+        int price = product.getSalary() * count;
+
         if (totalPrice + price > limit) {
             return;
         } else if (containsItem(name)) {
@@ -33,12 +35,13 @@ public class Basket {
         } else if (items.isEmpty()) {
             items += name + " - " + price;
             totalPrice += price;
-            //totalWeight += weight;
-
+            totalCost += price;
+            totalCount += count;
         } else {
             items += "\n" + name + " - " + price;
             totalPrice += price;
-            //totalWeight += weight;
+            totalCost += price;
+            totalCount += count;
         }
     }
 
@@ -52,8 +55,8 @@ public class Basket {
         totalWeight = 0;
     }
 
-    public void print(String tittle) {
-        System.out.println(tittle);
+    public void print(String title) {
+        System.out.println(title);
         if (items.isEmpty()) {
             System.out.println("Карзина пуста!");
         } else {
@@ -79,7 +82,25 @@ public class Basket {
         return totalWeight;
     }
 
-    // items типизирован стрингом
-    // конкретный кекс - обьект
-    // формочка - класс
+    public static double getCalculateAveragePrice() {
+        if (totalCount == 0) {
+            return 0;
+        }
+        return totalCost / totalCount;
+    }
+
+    public static double getTotalPriceAll() {
+        if (countBasket == 0) {
+            return 0;
+        }
+        return totalCost / countBasket;
+    }
+
+    public static double getTotalCost() {
+        return totalCost;
+    }
+
+    public static int getTotalCount() {
+        return totalCount;
+    }
 }
